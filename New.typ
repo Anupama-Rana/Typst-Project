@@ -5,8 +5,10 @@
 
 // CONTROL PANEL (Variables)
 #let show-border = false
-#let total_rows = 44
-#let landscape = false
+#let is_landscape = false
+#let total_rows = if is_landscape{
+  27} else { 45}
+
 
 #let border_thick = 2pt + black
 #let border_solid  = 1.5pt + black
@@ -56,7 +58,7 @@
 // EMPTY ROW GENERATOR
 
 #let empty-row(mode) = {
-  if mode == "portrait"{
+if is_landscape{
     (
       table.cell(..stroke_3)[],
       table.cell(..stroke_3)[],
@@ -83,8 +85,8 @@
 
 #let content = box(
   stroke: border_thick,
-  width: 100%,
-  height: if landscape {13.5cm} else {100%},
+  width: if is_landscape {100%} else {100%},
+  height: if is_landscape {100%} else {100%},
   radius: radius
 )[
   
@@ -92,7 +94,7 @@
 
 
 #table(
-  columns: if landscape {
+  columns: if is_landscape {
     (0.5fr,2fr,1fr,1fr,1fr)
   } else {
     (0.5fr,2fr,1.5fr,1fr,1fr)
@@ -120,7 +122,7 @@
 
   // DYNAMIC ROWS
   ..for i in range(total_rows) {
-    empty-row(if landscape {"landscape"} else {"portrait"})
+    empty-row(if is_landscape {"true"} else {"false"})
   },
   
   //FOOTER
@@ -140,13 +142,14 @@ table.cell(colspan: 3, align: center,stroke: (none))[
 ]
 #set page(
   paper: "a5",
-  margin: if landscape {
+  flipped: is_landscape,
+  margin: if is_landscape {
     (top: 0.5cm, left: 2cm, right: 0.5cm, bottom: 0.5cm)
   } else {
     (top: 0.5cm, left: 2cm, right: 0.5cm, bottom: 0.5cm)
   }
 )
-#content
 
+#content
 
 
