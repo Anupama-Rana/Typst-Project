@@ -3,6 +3,7 @@
   size: 10pt
 )
 
+
 // CONTROL PANEL (Variables)
 #let show-border = false
 #let is_landscape = true
@@ -44,6 +45,7 @@
   stroke: (left:none,right:none,bottom:border_solid),
   align:center + horizon,
 )
+
 
 
 // DOT SYMBOL
@@ -92,9 +94,9 @@
 
 #table(
   columns: if is_landscape {
-    (0.5fr,2fr,1fr,1fr,1fr)
+    (0.5fr,2.5fr,1fr,1fr,1fr)
   } else {
-    (0.5fr,2fr,1.5fr,1fr,1fr)
+    (0.5fr,2.5fr,1.5fr,1fr,1fr)
   },
   stroke: cell-stroke,
   // HEADER SECTION
@@ -127,19 +129,31 @@
   
   table.cell(..stroke_4)[Remarks],
   table.cell(colspan: 5,stroke: (none))[],
-  table.cell(colspan: 2, align: center,stroke: (none))[
-    #line(length: 40%)
-  Requested By
-  #v(10mm)],
+  table.cell(colspan: 2, align: center,stroke:(none))[
+     #v(4mm)
+    #line(length: 50%)
+     #v(-3mm)
+  Requested By],
 
-table.cell(colspan: 3, align: center,stroke: (none))[
-  #line(length: 40%)
-  Approved By
-  #v(10mm)] 
+table.cell(colspan: 3, align: center,stroke:(none))[
+   #v(4mm)
+    #line(length: 50%)
+     #v(-3mm)
+  Approved By],
 )
 ]
 #set page(
   paper: "a5",
+    foreground: [
+    #place(
+      left + horizon,
+      dx:8mm,
+    )[
+      #text(
+        size: 10pt,
+      )[#dot]
+    ]
+  ],
   flipped: is_landscape,
   margin: if is_landscape {
     (top: 0.5cm, left: 2cm, right: 0.5cm, bottom: 0.5cm)
